@@ -1,0 +1,15 @@
+protobuf>=3.19.5,<3.20.1
+transformers==4.27.1
+icetk
+cpm_kernels
+streamlit==1.17.0
+matplotlib
+datasets==2.20.0
+accelerate==0.17.1
+packaging>=20.0
+psutil
+pyyaml
+peft
+numpy~=1.26.3
+tqdm~=4.66.4
+torch~=2.0.0+cu118
