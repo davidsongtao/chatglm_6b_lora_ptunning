@@ -41,16 +41,10 @@
 |---------------|------------------|
 | protobuf      | >=3.19.5,<3.20.1 |
 | transformers  | >=4.27.1         |
-| icetk         | n/a              |
-| cpm_kernels   | n/a              |
 | streamlit     | ==1.17.0         |
-| matplotlib    | n/a              |
 | datasets      | >==2.10.1        |
 | accelerate    | ==0.17.1         |
 | packaging     | >=20.0           |
-| psutil        | n/a              |
-| pyyaml        | n/a              |
-| peft          | n/a              |
 
 ### LoRA 原理介绍
 
