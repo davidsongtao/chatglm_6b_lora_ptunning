@@ -1,5 +1,8 @@
 # ChatGLM 6B with LoRA P-Tuning 🚀
+
 通过使用LoRA对ChatGLM-6B开源大模型进行微调，从而实现利用ChatGLM大模型进行复合任务处理。本项目中主要处理两个任务：新媒体行业评论只能分类与信息抽取
+
+项目持续更新中...
 
 <!-- PROJECT SHIELDS -->
 
