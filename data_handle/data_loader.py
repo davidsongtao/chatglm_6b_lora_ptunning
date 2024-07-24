@@ -10,6 +10,7 @@ tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model,
                                           revision='main'
                                           )
 
+
 def get_data():
     dataset = load_dataset(path='text',
                            data_files={'train': param.train_path, 'dev': param.dev_path})
