@@ -9,7 +9,7 @@ class ParametersConfig:
         # 定义训练数据的路径
         self.train_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_train_dataset.jsonl'
         # 定义验证集数据的路径
-        self.dev_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_dev_dataset.jsonl'
+        self.eval_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_dev_dataset.jsonl'
         # 是否使用lora方法微调
         self.use_lora = True
         # 是否使用P-Tunning方法微调
@@ -27,9 +27,9 @@ class ParametersConfig:
         # 学习率预热比例
         self.warmup_ratio = 0.06
         # context文本的输入长度限制
-        self.max_source_sq_len = 400
+        self.max_source_sq_len = 300
         # target文本长度限制
-        self.max_target_seq_len = 300
+        self.max_target_sq_len = 200
         # 每隔多少步打印日志
         self.logging_steps = 10
         # 每隔多少步保存
