@@ -53,5 +53,5 @@ if __name__ == '__main__':
     train_dataloader, eval_dataloader = get_dataloader(param.train_path, param.eval_path, tokenizer)
     for i, v in enumerate(train_dataloader):
         print(i)
-        print(v['labels'].shape)
+        print(v['labels'])
         break

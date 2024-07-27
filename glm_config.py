@@ -1,15 +1,16 @@
-import torch.cuda
+import torch
+import platform
 
 
 class ParametersConfig:
     def __init__(self):
         # 定义是否使用GPU
         self.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-        self.pretrained_model = r'D:\Projects\chatglm_lora_ptuning\models\ChatGLM-6B'
+        self.pretrained_model = r'D:\Projects\chatglm_lora_ptuning\models\ChatGLM-6B' if platform.system().lower() == 'windows' else '/root/autodl-tmp/chatglm_lora_ptuning/models/ChatGLM-6B'
         # 定义训练数据的路径
-        self.train_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_train_dataset.jsonl'
+        self.train_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_train_dataset.jsonl' if platform.system().lower() == 'windows' else '/root/autodl-tmp/chatglm_lora_ptuning/data/mixed_train_dataset.jsonl'
         # 定义验证集数据的路径
-        self.eval_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_dev_dataset.jsonl'
+        self.eval_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_dev_dataset.jsonl' if platform.system().lower() == 'windows' else '/root/autodl-tmp/chatglm_lora_ptuning/data/mixed_dev_dataset.jsonl'
         # 是否使用lora方法微调
         self.use_lora = True
         # 是否使用P-Tunning方法微调
@@ -39,4 +40,9 @@ class ParametersConfig:
         # 默认为false,即P-Tunning,如果为True,即为P-Tunning-v2
         self.prefix_projection = False
         # 保存模型的路径
-        self.save_dir = r'D:\lora\models\save_model'
+        self.save_dir = r'D:\lora\models\save_model' if platform.system().lower() == 'windows' else '/root/autodl-tmp/chatglm_lora_ptuning/models/save_models'
+
+
+if __name__ == '__main__':
+    param = ParametersConfig()
+    print(param.train_path)

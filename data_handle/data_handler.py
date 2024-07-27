@@ -115,7 +115,7 @@ def get_max_length(tokenizer, dataset_file: str):
 
 if __name__ == '__main__':
     param = ParametersConfig()
-    train_dataset = load_dataset(path='text', data_files={'train': param.train_path, 'dev': param.dev_path})
+    train_dataset = load_dataset(path='text', data_files={'train': param.train_path, 'dev': param.eval_path})
     train_dataset = train_dataset['train']
     tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model, trust_remote_code=True, revision='main')
     train_dataset = convert_samples(train_dataset, tokenizer, max_context_len=300, max_target_len=250)
