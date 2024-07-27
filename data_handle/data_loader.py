@@ -15,42 +15,43 @@ from functools import partial
 from data_handle.data_handler import *
 
 
-def get_dataloader(train_path, eval_path, tokenizer):
-    dataset = load_dataset(path='text', data_files={'train': train_path, 'eval': eval_path})
+def get_dataloader(train_path, eval_path):
+
+    _tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model, trust_remote_code=True, revision='main')
+    _dataset = load_dataset(path='text', data_files={'train': train_path, 'eval': eval_path})
 
     new_func = partial(
         convert_samples,
-        tokenizer=tokenizer,
+        tokenizer=_tokenizer,
         max_context_len=param.max_source_sq_len,
         max_target_len=param.max_target_sq_len
     )
 
-    dataset = dataset.map(new_func, batched=True)
+    _dataset = _dataset.map(new_func, batched=True)
 
-    train_dataset = dataset['train']
-    eval_dataset = dataset['eval']
+    _train_dataset = _dataset['train']
+    _eval_dataset = _dataset['eval']
 
-    train_dataloader = DataLoader(
-        train_dataset,
+    _train_dataloader = DataLoader(
+        _train_dataset,
         batch_size=param.batch_size,
         shuffle=True,
         collate_fn=default_data_collator
     )
 
-    eval_dataloader = DataLoader(
-        eval_dataset,
+    _eval_dataloader = DataLoader(
+        _eval_dataset,
         batch_size=param.batch_size,
         shuffle=True,
         collate_fn=default_data_collator
     )
 
-    return train_dataloader, eval_dataloader
+    return _train_dataloader, _eval_dataloader
 
 
 if __name__ == '__main__':
     param = ParametersConfig()
-    tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model, trust_remote_code=True, revision='main')
-    train_dataloader, eval_dataloader = get_dataloader(param.train_path, param.eval_path, tokenizer)
+    train_dataloader, eval_dataloader = get_dataloader(param.train_path, param.eval_path)
     for i, v in enumerate(train_dataloader):
         print(i)
         print(v['labels'])
