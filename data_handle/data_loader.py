@@ -1,49 +1,47 @@
+from functools import partial
+
 from torch.utils.data import DataLoader
 from transformers import default_data_collator, AutoTokenizer
-from data_handle.data_preprocess import *
+from data_handle.data_handler import *
 from glm_config import *
 
-# 实例化配置文件和分词器
-param = ParametersConfig()
-tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model,
-                                          trust_remote_code=True,
-                                          revision='main'
-                                          )
 
+def get_dataloader(train_path, eval_path, tokenizer):
 
-def get_data():
-    dataset = load_dataset(path='text',
-                           data_files={'train': param.train_path, 'dev': param.dev_path})
+    dataset = load_dataset(path='text', data_files={'train': train_path, 'eval': eval_path})
 
     new_func = partial(
         convert_samples,
         tokenizer=tokenizer,
-        max_source_seq_len=200,
-        max_target_seq_len=100
+        max_context_len=300,
+        max_target_len=200
     )
 
     dataset = dataset.map(new_func, batched=True)
+
     train_dataset = dataset['train']
-    # print(train_dataset)
-    dev_dataset = dataset['dev']
-    # print(dev_dataset)
+    eval_dataset = dataset['eval']
 
     train_dataloader = DataLoader(
         train_dataset,
-        shuffle=True,
+        collate_fn=default_data_collator,
         batch_size=param.batch_size,
-        collate_fn=default_data_collator
+        shuffle=True
+    )
+    eval_dataloader = DataLoader(
+        eval_dataset,
+        collate_fn=default_data_collator,
+        batch_size=param.batch_size,
+        shuffle=True
     )
 
-    dev_dataloader = DataLoader(
-        dev_dataset,
-        shuffle=True,
-        batch_size=param.batch_size,
-        collate_fn=default_data_collator
-    )
-
-    return train_dataloader, dev_dataloader
+    return train_dataloader, eval_dataloader
 
 
 if __name__ == '__main__':
-    train_dataloader, dev_dataloader = get_data()
+    param = ParametersConfig()
+    tokenizer = AutoTokenizer.from_pretrained(param.pretrained_model, trust_remote_code=True, revision='main')
+    # dataset = load_dataset(path='text', data_files={'train': param.train_path, 'dev': param.dev_path})
+    train_dataloader, eval_dataloader = get_dataloader(param.train_path, param.dev_path, tokenizer)
+    print(f"train_dataloader --> {train_dataloader}")
+    print(f"eval_dataloader --> {eval_dataloader}")

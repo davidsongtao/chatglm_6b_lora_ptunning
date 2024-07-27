@@ -10,6 +10,6 @@ packaging>=20.0
 psutil
 pyyaml
 peft
-numpy~=1.26.3
+numpy==1.26.3
 tqdm~=4.66.4
-torch~=2.0.0+cu118
+torch==2.0.0+cu118

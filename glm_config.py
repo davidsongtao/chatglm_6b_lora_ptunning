@@ -5,11 +5,11 @@ class ParametersConfig:
     def __init__(self):
         # 定义是否使用GPU
         self.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-        self.pretrained_model = r'D:\lora\models\ChatGLM-6B'
+        self.pretrained_model = r'D:\Projects\chatglm_lora_ptuning\models\ChatGLM-6B'
         # 定义训练数据的路径
-        self.train_path = r'D:\lora\data\mixed_train_dataset.jsonl'
+        self.train_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_train_dataset.jsonl'
         # 定义验证集数据的路径
-        self.dev_path = r'D:\lora\data\mixed_dev_dataset.jsonl'
+        self.dev_path = r'D:\Projects\chatglm_lora_ptuning\data\mixed_dev_dataset.jsonl'
         # 是否使用lora方法微调
         self.use_lora = True
         # 是否使用P-Tunning方法微调
